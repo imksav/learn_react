@@ -2,6 +2,7 @@ import './App.css';
 import './index.css';
 import { User } from './User';
 import { Planet } from './Planet';
+import { useState } from 'react';
 
 
 // functions
@@ -12,7 +13,6 @@ function Signup() {
 </button>
   )
 }
-
 
 function Fun() {
   const age = 20
@@ -58,17 +58,80 @@ function Planets() {
   ]
   return (
     <div>
-      {planets.map((title, key) => {
+            {planets.map((title, key) => {
         return (
           <Planet name={title.name} isGas={title.isGas} />
         )
       })}
+      {/* {
+        planets.map((planet, key) => 
+          planet.isGas && <h1>{ planet.name}</h1>
+        )
+      } */}
+      
     </div>
   )
 }
 
+function Age() {
+  const [age, setAge]=useState(0)
+  const increaseAge = () => {
+    setAge(age+1)
+  }
+  return (
+    <div className='App'>
+      {age}
+      <button onClick={increaseAge} >Increase Age</button>
+    </div>
+  )
+}
 
+function DisplayText() {
+  const [inputValue, setInputValue] = useState("");
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value)
+    console.log(event.target.value)
+  }
+  return (
+    <div className='App'>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" onChange={handleInputChange} />
+      {inputValue}
+    </div>
+  )
+}
 
+function Example() {
+  const [textColour, setTextColour] = useState("black");
+  return (
+    <div className='App'>
+      <button class="bg-blue-700 rounded py-2 px-4 font-bold font-sans text-white mt-2" onClick={() => { setTextColour(textColour==="black"?"red":"black"); }}>Show/Hide</button>
+ <h1 style={{color: textColour, padding:2}}>Showing</h1>
+    </div>
+  );
+}
+
+function Counter() {
+  const [count, setCount] = useState(0);
+  const increaseCount = () => {
+    setCount(count+1)
+  }
+  const decreaseCount = () => {
+    setCount(count-1)
+  }
+  const zeroCount = () => {
+    setCount(0)
+  }
+  return (
+    <div className='App'>
+      <button class="bg-blue-700 rounded py-2 px-4 font-bold font-sans text-white mx-2" onClick={increaseCount}>+</button>
+            <button class="bg-blue-700 rounded py-2 px-4 font-bold font-sans text-white mx-2" onClick={decreaseCount}>-</button>
+            <button class="bg-blue-700 rounded py-2 px-4 font-bold font-sans text-white mx-2" onClick={zeroCount}>0</button>
+      { count}
+    
+
+    </div>
+  )
+}
 // calling functions
 export default function Gallery() {
   return (
@@ -77,6 +140,10 @@ export default function Gallery() {
       <Fun />
       <LearnList />
       <Planets />
+      <Age />
+      <DisplayText />
+      <Example />
+      <Counter />
     </section>
   );
 }
